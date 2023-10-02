@@ -1,3 +1,14 @@
+import React from 'react';
+import {
+  HomeOutlined,
+  LoadingOutlined,
+  SettingFilled,
+  SmileOutlined,
+  SyncOutlined,
+  DashboardOutlined,
+} from '@ant-design/icons';
+import { Outlet, Link } from "react-router-dom";
+
 export default function Root() {
     return (
       <>
@@ -29,15 +40,23 @@ export default function Root() {
           <nav>
             <ul>
               <li>
-                <a href={`/contacts/1`}>Your Name</a>
+                <Link to={`/dashboard`}><DashboardOutlined /> DashBoard</Link>
               </li>
               <li>
-                <a href={`/contacts/2`}>Your Friend</a>
+                <Link to={`/form`}><SettingFilled /> From</Link>
+              </li>
+              <li>
+                <Link to={`/table`}><SmileOutlined /> Table</Link>
+              </li>
+              <li>
+                <Link to={`/listuser`}><SyncOutlined />List User</Link>
               </li>
             </ul>
           </nav>
         </div>
-        <div id="detail"></div>
+        <div id="detail">
+            <Outlet />
+        </div>
       </>
     );
   }

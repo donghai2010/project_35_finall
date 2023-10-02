@@ -7,7 +7,6 @@ function App() {
   return (
     <>
       <div>Rocket_35</div>
-        
     </>
   )
 }
