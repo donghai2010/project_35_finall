@@ -1,4 +1,5 @@
 import { Chart } from './chart';
+import Box from './Box';
 import './DashBoard.css';
 import {SettingOutlined,
     BellOutlined,
@@ -21,13 +22,27 @@ function DashBoard() {
                      <i><BellOutlined /></i>
                      <i><WechatOutlined /></i>
                      <i><UserOutlined /></i>
-
                 </div>
             </div>
             <div className='content'>
-                <Chart />
+                <div className='conten_chart'>
+                    <Chart />
+                </div>
+                <div className='conten_text'>
+                    <div>
+                        <span>100</span>
+                        
+                    </div>
+                </div>
             </div>
-            <div className='footer'></div>
+            <div className='footer'>
+                <div>
+                    <h1 className='footer_heading'>Pencapaian OS Kredit</h1>
+                </div>
+                <div>
+                    <Box classbox = "box1" heading = "Kredit Konsumer"  />
+                </div>
+            </div>
         </main>
     </div>
   )

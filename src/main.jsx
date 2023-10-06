@@ -9,6 +9,8 @@ import {
 import Root from './routes/root.jsx';
 import ErrorPage from "./error-page";
 import DashBoard from './components/DashBoard.jsx';
+import TableCp from './tables/Table.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -26,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/table",
-        element: <h2>Xin chào Table</h2>,
+        element: <TableCp />,
       },
       {
         path: "/listuser",

@@ -23,6 +23,7 @@ code {
 html,
 body {
   height: 100%;
+  width: auto;
   margin: 0;
   line-height: 1.5;
   color: #121212;
@@ -214,6 +215,7 @@ i {
 #sidebar nav a {
   display: flex;
   align-items: center;
+  /* justify-content: space-between; */
   overflow: hidden;
 
   white-space: pre;
