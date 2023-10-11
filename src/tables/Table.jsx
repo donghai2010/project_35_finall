@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Space, Table, Tag } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
+import EditTable from './EditTable';
+import { NavLink } from "react-router-dom";
 const { confirm } = Modal;
 
 
@@ -37,6 +39,8 @@ const data = [
 
 const TableCp = () => {
     const [data, setDateTable] = useState ([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [itemDetail, setItemDetail] = useState({});
     // const api = 'https://64e5f67f09e64530d17f54dc.mockapi.io/rocket35class';
     const api = 'https://651ffc11906e276284c3d6cc.mockapi.io/api/v1/rocket35';
     const apiCall = () => {
@@ -98,12 +102,11 @@ const TableCp = () => {
           key: 'action',
           render: (_, itemTable) => (
             <Space size="middle">
-              <a>Invite {itemTable.name}</a>
-            <Tag color={'green'} onClick={ () => showDeleteConfirm(itemTable)}>
-                Delete
-            </Tag>
-            <Tag color={'green'} onClick={ () => showEditConfirm(itemTable)}>
+            <Tag color={'green'} onClick={ () => showEdit(itemTable)}>
                 Edit
+            </Tag>
+            <Tag color={'red'} onClick={ () => showDeleteConfirm(itemTable)}>
+                Delete
             </Tag>
             </Space>
           ),
@@ -128,22 +131,59 @@ const TableCp = () => {
         });
       };
 
-      const showEditConfirm = (item) => {
+      const showEdit = (item) => {
             console.log(item);
+            setItemDetail(item)
+            setIsModalOpen(true);
       }
 
     const  deleteTb = (itemTable) => {
             console.log(itemTable, 'itemTable');
             if(itemTable?.id) {
-                axios.delete( api +`/${itemTable?.id}`).then(() => {
+                axios.delete( api +`/${itemTable?.id}`).then((res) => {
                     apiCall();
                 }).catch(err => console.log('xóa ban ghi khong thanh cong'+ err))
             }
+    };
+    const editTable = (item) => {
+      const {id, name, address, age, tags, key} = item;
+      if(id) {
+          axios.put(api +`/${id}`, {
+            name,
+            address,
+            age,
+            tags,
+            key,
+          }).then((res) => {
+            setIsModalOpen(false);
+              apiCall();
+          }).catch(err => console.log('sửa ban ghi khong thanh cong'+ err))
+      }
     }
 
 
+
+
     return <>
+            <div style={{display : 'flex', justifyContent: 'space-between'}}>
+            <span >Danh sách  sản phẩm</span>
+            <NavLink
+                to="/addItemTable"
+              >
+                <Tag color='blue'>
+                  Thêm mới
+                </Tag>
+            </NavLink>
+            </div >
             <Table columns={columns} dataSource={data} />
+            {/* show modal */}
+            <EditTable 
+              isModalOpen = {isModalOpen} 
+              setIsModalOpen = {setIsModalOpen} 
+              itemDetail = {itemDetail}
+              setItemDetail = {setItemDetail}
+              callBackUpdate={editTable}
+            />
         </>
     
 };
