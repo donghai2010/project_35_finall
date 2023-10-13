@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 import { Space, Table, Tag } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
@@ -38,6 +39,7 @@ const data = [
 
 
 const TableCp = () => {
+  const count = useSelector(state => state.counter.value)
     const [data, setDateTable] = useState ([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [itemDetail, setItemDetail] = useState({});
@@ -79,24 +81,24 @@ const TableCp = () => {
         },
         {
           title: 'Tags',
-          key: 'tags',
           dataIndex: 'tags',
-          render: (_, { tags }) => (
-            <>
-              {tags.map((tag) => {
-                let color = tag.length > 5 ? 'geekblue' : 'green';
-                if (tag === 'loser') {
-                  color = 'volcano';
-                }
-                return (
-                  <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                  </Tag>
-                );
-              })}
-            </>
-          ),
+          key: 'tags',
         },
+        // {
+        //   title: 'Tags',
+        //   key: 'tags',
+        //   dataIndex: 'tags',
+        //   render: (_, itemTable) => (
+        //     <>
+        //         <Tag color={'blue'} >
+        //             {itemTable.tags}
+        //           </Tag>
+        //     </>
+                
+
+            
+        //   ),
+        // },
         {
           title: 'Action',
           key: 'action',
@@ -166,7 +168,8 @@ const TableCp = () => {
 
     return <>
             <div style={{display : 'flex', justifyContent: 'space-between'}}>
-            <span >Danh sách  sản phẩm</span>
+            <span >Danh sách  sản phẩm </span> 
+            {/* <span>{count}</span> */}
             <NavLink
                 to="/addItemTable"
               >

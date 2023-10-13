@@ -1,4 +1,6 @@
 import { Chart } from './chart';
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from '../features/counter/counterReducer'
 import Box from './Box';
 import './DashBoard.css';
 import {SettingOutlined,
@@ -9,6 +11,8 @@ import {SettingOutlined,
 
 
 function DashBoard() {
+    const count = useSelector(state => state.counter.value)
+    const dispatch = useDispatch()
   return (
     <div className='main_wrapper'>
         <main className='h-full'>
@@ -35,15 +39,35 @@ function DashBoard() {
                     </div>
                 </div>
             </div>
-            <div className='footer'>
+            {/* <div className='footer'>
                 <div>
                     <h1 className='footer_heading'>Pencapaian OS Kredit</h1>
                 </div>
                 <div>
                     <Box classbox = "box1" heading = "Kredit Konsumer"  />
                 </div>
-            </div>
+            </div> */}
         </main>
+        <br />
+        <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
+        </button>
+        
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+        <div>
+        <span>{count}</span>
+        </div>
+      </div>
+
     </div>
   )
 }

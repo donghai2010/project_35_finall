@@ -1,8 +1,11 @@
 import { Button } from "antd";
+import axios from "axios";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddItemTable = () => {
-
+    const api = 'https://651ffc11906e276284c3d6cc.mockapi.io/api/v1/rocket35';
+    const redirecUrl = useNavigate();
     const nameRef = useRef('');
     const ageRef = useRef('');
     const addressRef = useRef('');
@@ -16,6 +19,18 @@ const AddItemTable = () => {
             tags: tagsRef.current.value
         }
         console.log(result);
+        const {name , age, address, tags} = result;
+        if( name.trim() === '' || age.trim() === '' || address.trim() === '', tags.trim() === '' ){
+            console.log("Error: Invalid");
+            return;
+        }
+
+        axios.post(api, result).then(res => {
+            
+                alert("Thêm mới thành công!");
+                redirecUrl('/table');
+            
+        }).catch(err => console.log('error', err));
     }
 
     return <>
